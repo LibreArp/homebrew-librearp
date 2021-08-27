@@ -9,6 +9,9 @@ class Librearp < Formula
     using: :git,
     tag: "2.1"
 
+  if OS.linux?
+    depends_on "freetype"
+  end
   depends_on "gcc" => :build
   depends_on "cmake" => :build
   depends_on "curl"
