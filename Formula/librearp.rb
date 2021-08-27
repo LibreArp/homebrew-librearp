@@ -24,7 +24,9 @@ class Librearp < Formula
         "--target", "LibreArp_VST3",
         "--config", "Release"
 
-      if os.mac?
+      vst3_name = "LibreArp.vst3"
+
+      if OS.mac?
         main_outdir = "/Users/#{ENV["USER"]}/Library/Audio/Plug-ins/"
         vst3_outdir = main_outdir + "VST3/"
       else
@@ -32,7 +34,8 @@ class Librearp < Formula
         vst3_outdir = main_outdir + ".vst3/"
       end
 
-      FileUtils.cp_r "LibreArp_artefacts/VST3/LibreArp.vst3", vst3_outdir
+      FileUtils.cp_r "LibreArp_artefacts/VST3/LibreArp.vst3", vst3_outdir + vst3_name,
+        remove_destination: true
     end
   end
 end
