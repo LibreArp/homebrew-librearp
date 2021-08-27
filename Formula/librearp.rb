@@ -30,8 +30,10 @@ class Librearp < Formula
         main_outdir = "/home/#{ENV["USER"]}/"
         vst3_outdir = main_outdir + ".vst3/"
       end
+      
+      prefix.install "LibreArp_artefacts/VST3/LibreArp.vst3"
 
-      cp_r "LibreArp_artefacts/VST3/LibreArp.vst3", vst3_outdir + vst3_name,
+      ln_s "#{prefix}/LibreArp.vst3", vst3_outdir + vst3_name,
         remove_destination: true
     end
   end
