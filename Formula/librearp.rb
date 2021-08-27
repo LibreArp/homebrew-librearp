@@ -33,7 +33,8 @@ class Librearp < Formula
         vst3_outdir = main_outdir + ".vst3/"
       end
 
-      FileUtils.install "LibreArp_artefacts/VST3/LibreArp.vst3", vst3_outdir + vst3_name
+      FileUtils.cp_r "LibreArp_artefacts/VST3/LibreArp.vst3", vst3_outdir + vst3_name,
+        remove_destination: true
     end
   end
 
