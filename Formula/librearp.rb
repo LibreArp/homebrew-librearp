@@ -33,8 +33,7 @@ class Librearp < Formula
       
       prefix.install "LibreArp_artefacts/VST3/LibreArp.vst3"
 
-      ln_s "#{prefix}/LibreArp.vst3", vst3_outdir + vst3_name,
-        remove_destination: true
+      ln_s "#{prefix}/LibreArp.vst3", vst3_outdir + vst3_name, force: true
     end
   end
 
