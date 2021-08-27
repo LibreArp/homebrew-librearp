@@ -16,6 +16,16 @@ class Librearp < Formula
   depends_on "cmake" => :build
   depends_on "curl"
 
+  # Directory names
+  vst3_name = "LibreArp.vst3"
+  if OS.mac?
+    main_outdir = "/Users/#{ENV["USER"]}/Library/Audio/Plug-ins/"
+    vst3_outdir = main_outdir + "VST3/"
+  else
+    main_outdir = "/home/#{ENV["USER"]}/"
+    vst3_outdir = main_outdir + ".vst3/"
+  end
+
   def install
     mkdir "build" do
       system "cmake", ".."
@@ -24,18 +34,12 @@ class Librearp < Formula
         "--target", "LibreArp_VST3",
         "--config", "Release"
 
-      vst3_name = "LibreArp.vst3"
-
-      if OS.mac?
-        main_outdir = "/Users/#{ENV["USER"]}/Library/Audio/Plug-ins/"
-        vst3_outdir = main_outdir + "VST3/"
-      else
-        main_outdir = "/home/#{ENV["USER"]}/"
-        vst3_outdir = main_outdir + ".vst3/"
-      end
-
-      FileUtils.cp_r "LibreArp_artefacts/VST3/LibreArp.vst3", vst3_outdir + vst3_name,
-        remove_destination: true
+      FileUtils.install "LibreArp_artefacts/VST3/LibreArp.vst3", vst3_outdir + vst3_name
     end
+  end
+
+  test do
+    # TODO - add a proper test
+    assert_true true
   end
 end
