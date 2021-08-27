@@ -21,6 +21,7 @@ class Librearp < Formula
         "--build", ".",
         "--target", "LibreArp_VST3",
         "--config", "Release"
+      prefix.install "LibreArp_artefacts/VST3/LibreArp.vst3"
 
       vst3_name = "LibreArp.vst3"
       if OS.mac?
@@ -30,10 +31,11 @@ class Librearp < Formula
         main_outdir = "/home/#{ENV["USER"]}/"
         vst3_outdir = main_outdir + ".vst3/"
       end
-      
-      prefix.install "LibreArp_artefacts/VST3/LibreArp.vst3"
 
-      ln_s "#{prefix}/LibreArp.vst3", vst3_outdir + vst3_name, force: true
+      vst3_path = vst3_outdir + vst3_name
+
+      rm vst3_path
+      ln_s "#{prefix}/LibreArp.vst3", vst3_path, force: true
     end
   end
 
