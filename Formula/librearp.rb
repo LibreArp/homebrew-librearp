@@ -32,9 +32,9 @@ class Librearp < Formula
         vst3_outdir = main_outdir + ".vst3/"
       end
 
-      vst3_path = vst3_outdir + vst3_name
+      vst3_path = Pathname.new(vst3_outdir + vst3_name)
 
-      rm vst3_path
+      rm vst3_path if vst3_path.exist?
       ln_s "#{prefix}/LibreArp.vst3", vst3_path, force: true
     end
   end
