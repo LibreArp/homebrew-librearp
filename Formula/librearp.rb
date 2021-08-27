@@ -1,20 +1,18 @@
-require 'fileutils'
-require 'os'
+require "fileutils"
+require "os"
 
 class Librearp < Formula
-  desc "A pattern-based arpeggio generator plugin"
+  desc "Pattern-based arpeggio generator plugin"
   homepage "https://librearp.gitlab.io/"
-  license "GPL-3.0-or-later"
   url "https://gitlab.com/LibreArp/LibreArp.git",
-    using: :git,
-    tag: "2.1"
+    tag:      "2.1",
+    revision: "5ee3c1477b06f68392e829770093a654be9348a2"
+  license "GPL-3.0-or-later"
 
-  if OS.linux?
-    depends_on "freetype"
-  end
-  depends_on "gcc" => :build
   depends_on "cmake" => :build
+  depends_on "gcc" => :build
   depends_on "curl"
+  depends_on "freetype" if OS.linux?
 
   def install
     mkdir "build" do
@@ -23,7 +21,7 @@ class Librearp < Formula
         "--build", ".",
         "--target", "LibreArp_VST3",
         "--config", "Release"
-      
+
       vst3_name = "LibreArp.vst3"
       if OS.mac?
         main_outdir = "/Users/#{ENV["USER"]}/Library/Audio/Plug-ins/"
@@ -33,13 +31,13 @@ class Librearp < Formula
         vst3_outdir = main_outdir + ".vst3/"
       end
 
-      FileUtils.cp_r "LibreArp_artefacts/VST3/LibreArp.vst3", vst3_outdir + vst3_name,
+      cp_r "LibreArp_artefacts/VST3/LibreArp.vst3", vst3_outdir + vst3_name,
         remove_destination: true
     end
   end
 
   test do
-    # TODO - add a proper test
+    # TODO: Add a proper test
     assert_true true
   end
 end
