@@ -25,7 +25,7 @@ class Librearp < Formula
 
       vst3_name = "LibreArp.vst3"
       if OS.mac?
-        main_outdir = "/Users/#{ENV["USER"]}/Library/Audio/Plug-ins/"
+        main_outdir = "/Library/Audio/Plug-ins/"
         vst3_outdir = main_outdir + "VST3/"
       else
         main_outdir = "/home/#{ENV["USER"]}/"
