@@ -1,6 +1,5 @@
 require 'fileutils'
 require 'os'
-require 'Env'
 
 class Librearp < Formula
   desc "A pattern-based arpeggio generator plugin"
@@ -23,10 +22,10 @@ class Librearp < Formula
         "--config", "Release"
 
       if os.mac?
-        main_outdir = "/Users/#{$USER}/Library/Audio/Plug-ins/"
+        main_outdir = "/Users/#{ENV["USER"]}/Library/Audio/Plug-ins/"
         vst3_outdir = main_outdir + "VST3/"
       else
-        main_outdir = "/home/#{$USER}/"
+        main_outdir = "/home/#{ENV["USER"]}/"
         vst3_outdir = main_outdir + ".vst3/"
       end
 
