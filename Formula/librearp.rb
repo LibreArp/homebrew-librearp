@@ -5,8 +5,10 @@ class Librearp < Formula
   desc "Pattern-based arpeggio generator plugin"
   homepage "https://librearp.gitlab.io/"
   url "https://gitlab.com/LibreArp/LibreArp.git",
-    tag:      "2.1",
-    revision: "5ee3c1477b06f68392e829770093a654be9348a2"
+    #tag:      "2.1-hbtest",
+    #revision: "c0d556794e1844fbb0fd5ec78583d6634f7af065"
+    branch:    "homebrew-test-2"
+  version "2.1"
   license "GPL-3.0-or-later"
 
   depends_on "cmake" => :build
@@ -21,27 +23,22 @@ class Librearp < Formula
         "--build", ".",
         "--target", "LibreArp_VST3",
         "--config", "Release"
-      prefix.install "LibreArp_artefacts/VST3/LibreArp.vst3"
-
-      vst3_name = "LibreArp.vst3"
-      if OS.mac?
-        main_outdir = "/Library/Audio/Plug-ins/"
-        vst3_outdir = main_outdir + "VST3/"
-      else
-        main_outdir = "/home/#{ENV["USER"]}/"
-        vst3_outdir = main_outdir + ".vst3/"
-      end
-
-      vst3_path = Pathname.new(vst3_outdir + vst3_name)
-
-      mkdir_p vst3_outdir
-      rm vst3_path if vst3_path.exist?
-      ln_s "#{prefix}/LibreArp.vst3", vst3_path, force: true
+      
+      librearp_lib = lib/"librearp"
+      mkdir_p librearp_lib
+      librearp_lib.install "LibreArp_artefacts/VST3/LibreArp.vst3" => "LibreArp.vst3"
     end
+
+    bin.install "Scripts/update-librearp.sh" => "update-librearp"
   end
 
-  test do
-    # TODO: Add a proper test
-    assert_true true
+  def caveats
+    <<~EOS
+    To finish installing LibreArp, please run the `update-librearp' command to link the plugin into the standard user-specific plugin directory.
+    You may also use `sudo update-librearp install global' to link the plugin for all users.
+
+    For further information, please consult the user guide: https://librearp.gitlab.io/guide/install/
+    EOS
   end
+
 end
