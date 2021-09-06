@@ -8,6 +8,8 @@ class Librearp < Formula
     #tag:      "2.1-hbtest",
     #revision: "c0d556794e1844fbb0fd5ec78583d6634f7af065"
     branch:    "homebrew-test-2"
+  head "https://gitlab.com/LibreArp/LibreArp.git",
+    branch:    "develop"
   version "2.1"
   license "GPL-3.0-or-later"
 
