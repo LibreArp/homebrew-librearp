@@ -5,13 +5,11 @@ class Librearp < Formula
   desc "Pattern-based arpeggio generator plugin"
   homepage "https://librearp.gitlab.io/"
   url "https://gitlab.com/LibreArp/LibreArp.git",
-    #tag:      "2.1-hbtest",
-    #revision: "c0d556794e1844fbb0fd5ec78583d6634f7af065"
-    branch:    "homebrew-test-2"
-  head "https://gitlab.com/LibreArp/LibreArp.git",
-    branch:    "develop"
-  version "2.1"
+    tag:      "2.2",
+    revision: "39be3e5d860e621bf477015e2b1e2d4597a08584"
   license "GPL-3.0-or-later"
+  head "https://gitlab.com/LibreArp/LibreArp.git",
+    branch: "develop"
 
   depends_on "cmake" => :build
   depends_on "gcc" => :build
@@ -25,7 +23,7 @@ class Librearp < Formula
         "--build", ".",
         "--target", "LibreArp_VST3",
         "--config", "Release"
-      
+
       librearp_lib = lib/"librearp"
       mkdir_p librearp_lib
       librearp_lib.install "LibreArp_artefacts/VST3/LibreArp.vst3" => "LibreArp.vst3"
@@ -36,11 +34,10 @@ class Librearp < Formula
 
   def caveats
     <<~EOS
-    To finish installing LibreArp, please run the `update-librearp' command to link the plugin into the standard user-specific plugin directory.
-    You may also use `sudo update-librearp install global' to link the plugin for all users.
+      To finish installing LibreArp, please run the `update-librearp' command to link the plugin into the standard user-specific plugin directory.
+      You may also use `sudo update-librearp install global' to link the plugin for all users.
 
-    For further information, please consult the user guide: https://librearp.gitlab.io/guide/install/
+      For further information, please consult the user guide: https://librearp.gitlab.io/guide/install/
     EOS
   end
-
 end
