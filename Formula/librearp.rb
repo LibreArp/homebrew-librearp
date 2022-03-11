@@ -6,7 +6,7 @@ class Librearp < Formula
   homepage "https://librearp.gitlab.io/"
   url "https://gitlab.com/LibreArp/LibreArp.git",
     tag:      "2.3",
-    revision: "39be3e5d860e621bf477015e2b1e2d4597a08584"
+    revision: "cb8a9ffdfa1957251e1330e2deb1a3db0a4e72d8"
   license "GPL-3.0-or-later"
   head "https://gitlab.com/LibreArp/LibreArp.git",
     branch: "develop"
