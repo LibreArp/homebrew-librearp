@@ -1,0 +1,38 @@
+variables:
+  DOCKER_IMAGE_NAME: librearp/linux-homebrew-docker
+
+stages:
+  - docker
+  - install
+
+docker-linux:
+  stage: docker
+  tags:
+    - linux
+  image: docker:20
+  services:
+    - docker:20-dind
+#  only:
+#    changes:
+#      - Dockerfile
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build --tag $CI_REGISTRY/$DOCKER_IMAGE_NAME:$CI_COMMIT_SHORT_SHA --tag $CI_REGISTRY/$DOCKER_IMAGE_NAME:latest .
+    - docker push $CI_REGISTRY/$DOCKER_IMAGE_NAME:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY/$DOCKER_IMAGE_NAME:latest
+
+# Sanity-checking job template
+.install-job:
+  stage: install
+  script:
+    - brew install ./Formula/librearp.rb
+
+# Sanity check on Linux
+install-linux:
+  extends: .install-job
+  tags:
+    - linux
+  image: $CI_REGISTRY/$DOCKER_IMAGE_NAME:latest
+  needs: ["docker-linux"]
+
+# TODO: Add macOS sanity-check if we get access to the runners
