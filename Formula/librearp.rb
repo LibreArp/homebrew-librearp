@@ -5,8 +5,8 @@ class Librearp < Formula
   desc "Pattern-based arpeggio generator plugin"
   homepage "https://librearp.gitlab.io/"
   url "https://gitlab.com/LibreArp/LibreArp.git",
-    tag:      "2.4",
-    revision: "d920677d87425aabe593c49c5497c45b7f10d5b5"
+    tag:      "2.5",
+    revision: "2d96a74f54b8ccc5189e157cb669841a854625aa"
   license "GPL-3.0-or-later"
   head "https://gitlab.com/LibreArp/LibreArp.git",
     branch: "develop"
