@@ -18,7 +18,8 @@ class Librearp < Formula
 
   def install
     mkdir "build" do
-      system "cmake", ".."
+      system "cmake", "..",
+        "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
       system "cmake",
         "--build", ".",
         "--target", "LibreArp_VST3",
